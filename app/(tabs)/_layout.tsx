@@ -44,18 +44,45 @@ export default function TabLayout() {
               height: 50,
               width: "100%",
               display: "flex",
-              paddingBottom: 10,
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 10,
             }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 18,
-                color: "black",
-                fontWeight: "bold",
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                marginRight: 15,
               }}
             >
-              {""}
-            </Text>
+              <Image
+                style={{
+                  width: 45,
+                  height: 45,
+                  borderWidth: 1,
+                  borderRadius: 50,
+                  borderColor: Colors.light.tint,
+                }}
+                source={{
+                  uri: "https://cdn-icons-png.flaticon.com/512/219/219988.png",
+                }}
+              />
+            </View>
+            <View
+              style={{
+                height: 40,
+                width: "auto",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                Halo Reni
+              </Text>
+              <Text style={{ fontStyle: "italic", fontSize: 12 }}>
+                Bagaimana kabarmu hari ini?
+              </Text>
+            </View>
           </View>
         ),
       }}

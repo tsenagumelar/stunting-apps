@@ -38,6 +38,7 @@ export default function RootLayout() {
           statusBarHidden: false,
           contentStyle: {
             padding: 10,
+            backgroundColor: "#f2f2f2",
           },
         }}
       >
