@@ -1,12 +1,16 @@
-import { Tabs } from "expo-router";
 import React from "react";
-
-import { TabBarIcon } from "@/src/components/navigation/TabBarIcon";
-import Colors from "@/src/constants/colors";
-import { useColorScheme } from "@/src/hooks/useColorScheme";
-import { ColorValue, Image, ImageSourcePropType } from "react-native";
+import { Tabs } from "expo-router";
+import {
+  ColorValue,
+  Image,
+  ImageSourcePropType,
+  Text,
+  View,
+} from "react-native";
 
 import ICONS from "@/src/constants/icons";
+import Colors from "@/src/constants/colors";
+import { useColorScheme } from "@/src/hooks/useColorScheme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -19,6 +23,7 @@ export default function TabLayout() {
         style={{
           width: 20,
           height: 20,
+          marginTop: 12.5,
         }}
       />
     );
@@ -28,7 +33,31 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
+        headerShown: true,
+        tabBarStyle: {
+          height: 50,
+          borderRadius: 50,
+        },
+        header: () => (
+          <View
+            style={{
+              height: 50,
+              width: "100%",
+              display: "flex",
+              paddingBottom: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                color: "black",
+                fontWeight: "bold",
+              }}
+            >
+              {""}
+            </Text>
+          </View>
+        ),
       }}
     >
       <Tabs.Screen
@@ -54,17 +83,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="faq"
-        options={{
-          title: "",
-          tabBarIcon: ({ focused }) =>
-            ImageIcon(
-              ICONS.warning,
-              focused ? Colors.light.tint : Colors.light.text
-            ),
-        }}
-      />
-      <Tabs.Screen
         name="menu-makan"
         options={{
           title: "",
@@ -76,23 +94,34 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
-        options={{
-          title: "",
-          tabBarIcon: ({ focused }) =>
-            ImageIcon(
-              ICONS.users,
-              focused ? Colors.light.tint : Colors.light.text
-            ),
-        }}
-      />
-      <Tabs.Screen
         name="edukasi"
         options={{
           title: "",
           tabBarIcon: ({ focused }) =>
             ImageIcon(
               ICONS.document,
+              focused ? Colors.light.tint : Colors.light.text
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="faq"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) =>
+            ImageIcon(
+              ICONS.warning,
+              focused ? Colors.light.tint : Colors.light.text
+            ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "",
+          tabBarIcon: ({ focused }) =>
+            ImageIcon(
+              ICONS.users,
               focused ? Colors.light.tint : Colors.light.text
             ),
         }}
