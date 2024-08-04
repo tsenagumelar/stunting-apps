@@ -98,7 +98,7 @@ export default function TabLayout() {
                     borderColor: Colors.light.tint,
                   }}
                   source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/219/219988.png",
+                    uri: "https://cdn-icons-png.flaticon.com/512/201/201634.png",
                   }}
                 />
               </View>
