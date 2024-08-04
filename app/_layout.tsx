@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { PaperProvider } from "react-native-paper";
 
 import { useColorScheme } from "@/src/hooks/useColorScheme";
 
@@ -33,23 +34,25 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack
-        screenOptions={{
-          statusBarHidden: false,
-          contentStyle: {
-            padding: 10,
-            backgroundColor: "#f2f2f2",
-          },
-        }}
-      >
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
+      <PaperProvider>
+        <Stack
+          screenOptions={{
+            statusBarHidden: false,
+            contentStyle: {
+              padding: 10,
+              backgroundColor: "#f2f2f2",
+            },
           }}
-        />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+        >
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </PaperProvider>
     </ThemeProvider>
   );
 }

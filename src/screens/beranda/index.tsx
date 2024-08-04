@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { Button } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import useHooks from "./hooks";
