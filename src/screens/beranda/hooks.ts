@@ -1,5 +1,58 @@
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export interface ICarousel {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface IArticle {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface IMenu {
+  id: number;
+  title: string;
+  image: string;
+}
+
+export interface IModal {
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  modalName: string;
+  setModalName: React.Dispatch<React.SetStateAction<string>>;
+  saveNameModal: () => Promise<void>;
+}
+
 const useHooks = () => {
-  const carouselDummy = [
+  const [name, setName] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const [modalName, setModalName] = useState("");
+
+  const getCurrentName = async () => {
+    try {
+      const value = await AsyncStorage.getItem("name");
+      if (value !== null) {
+        setName(value);
+      } else {
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // getCurrentName();
+  }, []);
+
+  const carouselDummy: ICarousel[] = [
     {
       id: 1,
       title: "Title 1",
@@ -43,11 +96,28 @@ const useHooks = () => {
     },
   ];
 
+  const saveNameModal = async () => {
+    try {
+      await AsyncStorage.setItem("name", modalName);
+      setShowModal(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     datas: {
       carouselDummy,
+      showModal,
+      name,
+      modalName,
     },
-    methods: {},
+    methods: {
+      setShowModal,
+      setName,
+      setModalName,
+      saveNameModal,
+    },
   };
 };
 
