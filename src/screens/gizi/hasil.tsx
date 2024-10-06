@@ -1,13 +1,32 @@
-import { useState } from "react";
+import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { View, Text, ScrollView, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 
-const Hasil = () => {
-  const [date, setDate] = useState(new Date());
+interface IHasil {
+  date: Date;
+  show: boolean;
+  value: string;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setRender: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const [show, setShow] = useState(false);
-  const [value, setValue] = useState("laki-laki");
-
+const Hasil: React.FC<IHasil> = ({
+  date,
+  show,
+  value,
+  setShow,
+  setValue,
+  setRender,
+}) => {
   return (
     <View
       style={{
@@ -390,33 +409,64 @@ const Hasil = () => {
                 </View>
               </LinearGradient>
             </View>
-            <LinearGradient
-              end={[1, 0.5]}
-              start={[0, 1]}
-              colors={["#21D4FD", "#55ACEE"]}
-              style={{
-                width: "100%",
-                height: 50,
-                display: "flex",
-                borderRadius: 50,
-                marginTop: 20,
-                flexDirection: "row",
-                alignItems: "center",
-                backgroundColor: "red",
-                justifyContent: "center",
-                alignSelf: "flex-end",
-              }}
-            >
-              <Text
+            <TouchableOpacity onPress={() => setRender("tambah")}>
+              <LinearGradient
+                end={[1, 0.5]}
+                start={[0, 1]}
+                colors={["#21D4FD", "#55ACEE"]}
                 style={{
-                  fontSize: 16,
-                  color: "white",
-                  fontWeight: "bold",
+                  width: "100%",
+                  height: 50,
+                  display: "flex",
+                  borderRadius: 50,
+                  marginTop: 20,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  backgroundColor: "red",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
                 }}
               >
-                Hitung Ulang
-              </Text>
-            </LinearGradient>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Hitung Ulang
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setRender("data")}>
+              <LinearGradient
+                end={[1, 0.5]}
+                start={[0, 1]}
+                colors={["#21D4FD", "#55ACEE"]}
+                style={{
+                  width: "100%",
+                  height: 50,
+                  display: "flex",
+                  borderRadius: 50,
+                  marginTop: 20,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  backgroundColor: "red",
+                  justifyContent: "center",
+                  alignSelf: "flex-end",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Kembali
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

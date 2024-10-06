@@ -3,14 +3,35 @@ import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "react-native-ui-datepicker";
 import { TextInput, RadioButton } from "react-native-paper";
-import { Modal, View, Text, ScrollView, Dimensions } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
 
-const Add = () => {
-  const [date, setDate] = useState(new Date());
+interface IAdd {
+  date: Date;
+  show: boolean;
+  value: string;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setRender: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const [show, setShow] = useState(false);
-  const [value, setValue] = useState("laki-laki");
-
+const Add: React.FC<IAdd> = ({
+  date,
+  show,
+  value,
+  setShow,
+  setValue,
+  setDate,
+  setRender,
+}) => {
   return (
     <ScrollView
       style={{
@@ -134,32 +155,65 @@ const Add = () => {
             </View>
           </View>
         </View>
-        <LinearGradient
-          end={[1, 0.5]}
-          start={[0, 1]}
-          colors={["#21D4FD", "#55ACEE"]}
-          style={{
-            width: "100%",
-            height: 50,
-            display: "flex",
-            borderRadius: 50,
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "red",
-            justifyContent: "center",
-            alignSelf: "flex-end",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 16,
-              color: "white",
-              fontWeight: "bold",
-            }}
-          >
-            Hitung
-          </Text>
-        </LinearGradient>
+        <View>
+          <TouchableOpacity onPress={() => setRender("hasil")}>
+            <LinearGradient
+              end={[1, 0.5]}
+              start={[0, 1]}
+              colors={["#21D4FD", "#55ACEE"]}
+              style={{
+                width: "100%",
+                height: 50,
+                display: "flex",
+                borderRadius: 50,
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: "red",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+                marginBottom: 20,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                Hitung
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setRender("data")}>
+            <LinearGradient
+              end={[1, 0.5]}
+              start={[0, 1]}
+              colors={["#21D4FD", "#55ACEE"]}
+              style={{
+                width: "100%",
+                height: 50,
+                display: "flex",
+                borderRadius: 50,
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: "red",
+                justifyContent: "center",
+                alignSelf: "flex-end",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                Cancel
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
