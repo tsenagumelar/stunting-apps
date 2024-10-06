@@ -11,7 +11,6 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { PaperProvider } from "react-native-paper";
 
-import { useColorScheme } from "@/src/hooks/useColorScheme";
 import React from "react";
 import { RealmProvider } from "@/src/realms";
 
@@ -19,7 +18,6 @@ import { RealmProvider } from "@/src/realms";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../src/assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -36,7 +34,7 @@ export default function RootLayout() {
 
   return (
     <RealmProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={DefaultTheme}>
         <PaperProvider>
           <Stack
             screenOptions={{

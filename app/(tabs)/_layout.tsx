@@ -10,12 +10,9 @@ import {
 
 import ICONS from "@/src/constants/icons";
 import Colors from "@/src/constants/colors";
-import { useColorScheme } from "@/src/hooks/useColorScheme";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   const ImageIcon = (
     icon: ImageSourcePropType,
     color: ColorValue,
@@ -63,7 +60,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors.light.tint,
         headerShown: true,
         tabBarStyle: {
           height: 60,
