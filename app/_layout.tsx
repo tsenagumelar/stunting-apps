@@ -1,8 +1,4 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 
 import "react-native-reanimated";
 import { useEffect } from "react";
@@ -12,7 +8,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { PaperProvider } from "react-native-paper";
 
 import React from "react";
-import { RealmProvider } from "@/src/realms";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,28 +28,26 @@ export default function RootLayout() {
   }
 
   return (
-    <RealmProvider>
-      <ThemeProvider value={DefaultTheme}>
-        <PaperProvider>
-          <Stack
-            screenOptions={{
-              statusBarHidden: false,
-              contentStyle: {
-                padding: 10,
-                backgroundColor: "#f2f2f2",
-              },
+    <ThemeProvider value={DefaultTheme}>
+      <PaperProvider>
+        <Stack
+          screenOptions={{
+            statusBarHidden: false,
+            contentStyle: {
+              padding: 10,
+              backgroundColor: "#f2f2f2",
+            },
+          }}
+        >
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              headerShown: false,
             }}
-          >
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-        </PaperProvider>
-      </ThemeProvider>
-    </RealmProvider>
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </PaperProvider>
+    </ThemeProvider>
   );
 }

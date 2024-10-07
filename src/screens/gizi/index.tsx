@@ -10,7 +10,7 @@ const Gizi = () => {
 
   return datas.render === "data" ? (
     <List
-      dataGizi={datas.DataGizi}
+      dataGizi={datas.dataGizi}
       setSelected={methods.setSelected}
       selected={datas.selected}
       setRender={methods.setRender}

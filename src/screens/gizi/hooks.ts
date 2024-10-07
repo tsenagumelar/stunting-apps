@@ -1,10 +1,9 @@
 import { useState } from "react";
 
-import { DataGizi } from "./dummy";
 import useDataStunting from "@/src/hooks/useDataStunting";
 
 const useHooks = () => {
-  const [render, setRender] = useState("tambah");
+  const [render, setRender] = useState("data");
 
   const [selected, setSelected] = useState(-1);
 
@@ -23,6 +22,8 @@ const useHooks = () => {
   const [labelRekBadanByUmurs, setLabelRekBadanByUmur] = useState("");
   const [labelRekTinggiByUmurs, setLabelRekTinggiByUmur] = useState("");
   const [labelRekBadanByTinggis, setLabelRekBadanByTinggi] = useState("");
+
+  const [dataGizi, setDataGizi] = useState([]);
 
   const {
     getRekBeratByTinggi,
@@ -90,7 +91,7 @@ const useHooks = () => {
   return {
     datas: {
       render,
-      DataGizi,
+      dataGizi,
       selected,
       date,
       show,
