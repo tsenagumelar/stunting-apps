@@ -1,5 +1,4 @@
 import moment from "moment";
-import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import DateTimePicker from "react-native-ui-datepicker";
 import { TextInput, RadioButton } from "react-native-paper";
@@ -12,14 +11,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
-import useDataStunting from "@/src/hooks/useDataStunting";
 
 interface IAdd {
   date: Date;
   show: boolean;
-  value: string;
+  kelamin: string;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setKelamin: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   setRender: React.Dispatch<React.SetStateAction<string>>;
   nama: string;
@@ -30,14 +28,15 @@ interface IAdd {
   setBeratBadan: React.Dispatch<React.SetStateAction<string>>;
   tinggiBadan: string;
   setTinggiBadan: React.Dispatch<React.SetStateAction<string>>;
+  hitung: () => void;
 }
 
 const Add: React.FC<IAdd> = ({
   date,
   show,
-  value,
+  kelamin,
   setShow,
-  setValue,
+  setKelamin,
   setDate,
   setRender,
   nama,
@@ -48,86 +47,8 @@ const Add: React.FC<IAdd> = ({
   setBeratBadan,
   tinggiBadan,
   setTinggiBadan,
+  hitung,
 }) => {
-  const {
-    getRekBeratByTinggi,
-    getRekTinggiByUmur,
-    getRekBeratByTinggiNormal,
-    getRekBeratByUmur,
-    labelBeratByTinggi,
-    labelTinggiByUmur,
-    leblBeratByUmur,
-  } = useDataStunting();
-
-  const hitung = () => {
-    const { kondisiTinggiByUmur, rekTinggiByUmur } = getRekTinggiByUmur(
-      "laki-laki",
-      umur.toString(),
-      tinggiBadan
-    );
-
-    const { kondisiBeratByTinggi } = getRekBeratByTinggi(
-      "laki-laki",
-      tinggiBadan,
-      beratBadan
-    );
-
-    const { kondisiBeratByUmur, rekBeratByUmur } = getRekBeratByUmur(
-      "laki-laki",
-      umur.toString(),
-      beratBadan
-    );
-
-    const { rekBeratByTinggi } = getRekBeratByTinggiNormal(
-      "laki-laki",
-      umur.toString(),
-      beratBadan
-    );
-
-    const labelBeratByUmur = leblBeratByUmur.filter(
-      (dt) =>
-        dt.value.filter((val) => val == kondisiBeratByUmur.toString()).length >
-        0
-    );
-
-    const labelTinggiByUmurs = labelTinggiByUmur.filter(
-      (dt) =>
-        dt.value.filter((val) => val == kondisiTinggiByUmur.toString()).length >
-        0
-    );
-
-    const labelBeratByTinggis = labelBeratByTinggi.filter(
-      (dt) =>
-        dt.value.filter((val) => val == kondisiBeratByTinggi.toString())
-          .length > 0
-    );
-
-    console.log(
-      "1 : ",
-      kondisiBeratByUmur,
-      " - ",
-      labelBeratByUmur[0].label,
-      " - ",
-      rekBeratByUmur
-    );
-    console.log(
-      "2 : ",
-      kondisiTinggiByUmur,
-      " - ",
-      labelTinggiByUmurs[0].label,
-      " - ",
-      rekTinggiByUmur
-    );
-    console.log(
-      "3 : ",
-      kondisiBeratByTinggi,
-      " - ",
-      labelBeratByTinggis[0].label,
-      " - ",
-      rekBeratByTinggi
-    );
-  };
-
   return (
     <ScrollView
       style={{
@@ -245,16 +166,16 @@ const Add: React.FC<IAdd> = ({
             <View>
               <RadioButton
                 value="laki-laki"
-                status={value === "laki-laki" ? "checked" : "unchecked"}
-                onPress={() => setValue("laki-laki")}
+                status={kelamin === "laki-laki" ? "checked" : "unchecked"}
+                onPress={() => setKelamin("laki-laki")}
               />
               <Text>Laki-laki</Text>
             </View>
             <View>
               <RadioButton
                 value="perempuan"
-                status={value === "perempuan" ? "checked" : "unchecked"}
-                onPress={() => setValue("perempuan")}
+                status={kelamin === "perempuan" ? "checked" : "unchecked"}
+                onPress={() => setKelamin("perempuan")}
               />
               <Text>Perempuan</Text>
             </View>

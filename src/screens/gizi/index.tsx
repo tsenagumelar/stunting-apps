@@ -19,9 +19,9 @@ const Gizi = () => {
     <Add
       date={datas.date}
       show={datas.show}
-      value={datas.value}
+      kelamin={datas.kelamin}
       setShow={methods.setShow}
-      setValue={methods.setValue}
+      setKelamin={methods.setKelamin}
       setDate={methods.setDate}
       setRender={methods.setRender}
       setBeratBadan={methods.setBeratBadan}
@@ -32,15 +32,21 @@ const Gizi = () => {
       tinggiBadan={datas.tinggiBadan}
       nama={datas.nama}
       umur={datas.umur}
+      hitung={methods.hitung}
     />
   ) : (
     <Hasil
-      date={datas.date}
-      show={datas.show}
-      value={datas.value}
-      setDate={methods.setDate}
-      setShow={methods.setShow}
-      setValue={methods.setValue}
+      labelBeratByUmur={datas.labelBeratByUmurs}
+      labelTinggiByUmur={datas.labelTinggiByUmurs}
+      labelBeratByTinggi={datas.labelBeratByTinggis}
+      labelRekBadanByUmur={datas.labelRekBadanByUmurs}
+      labelRekTinggiByUmur={datas.labelRekTinggiByUmurs}
+      labelRekBadanByTinggi={datas.labelRekBadanByTinggis}
+      beratBadan={datas.beratBadan}
+      tinggiBadan={datas.tinggiBadan}
+      kelamin={datas.kelamin}
+      umur={datas.umur}
+      nama={datas.nama}
       setRender={methods.setRender}
     />
   );

@@ -3,16 +3,34 @@ import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 
 interface IHasil {
-  date: Date;
-  show: boolean;
-  value: string;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  nama: string;
+  umur: number;
+  kelamin: string;
+  beratBadan: string;
+  tinggiBadan: string;
+  labelBeratByUmur: string;
+  labelTinggiByUmur: string;
+  labelBeratByTinggi: string;
+  labelRekBadanByUmur: string;
+  labelRekTinggiByUmur: string;
+  labelRekBadanByTinggi: string;
   setRender: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Hasil: React.FC<IHasil> = ({ setRender }) => {
+const Hasil: React.FC<IHasil> = ({
+  setRender,
+  beratBadan,
+  tinggiBadan,
+  kelamin,
+  nama,
+  umur,
+  labelBeratByUmur,
+  labelTinggiByUmur,
+  labelBeratByTinggi,
+  labelRekBadanByUmur,
+  labelRekTinggiByUmur,
+  labelRekBadanByTinggi,
+}) => {
   return (
     <View
       style={{
@@ -94,13 +112,13 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       fontSize: 18,
                     }}
                   >
-                    {"Rina"}
+                    {nama}
                   </Text>
                   <Text>
-                    {"Laki - laki"} {`- (${10}) bulan`}
+                    {kelamin} {`- (${umur}) bulan`}
                   </Text>
                   <Text>
-                    {10} kg / {120} cm
+                    {beratBadan} kg / {tinggiBadan} cm
                   </Text>
                 </View>
                 <View>
@@ -162,8 +180,7 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Status gizi anak, berat badan kurang. Anak anda memerlukan
-                    asupan gizi yang seimbang.
+                    {labelBeratByUmur}
                   </Text>
                 </View>
               </LinearGradient>
@@ -208,8 +225,7 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Status gizi anak, tinggi badan anak masuk dalam kategori
-                    sangat pendek.
+                    {labelTinggiByUmur}
                   </Text>
                 </View>
               </LinearGradient>
@@ -254,7 +270,7 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut tinggi badan, berat badan anak anda normal.
+                    {labelBeratByTinggi}
                   </Text>
                 </View>
               </LinearGradient>
@@ -300,7 +316,8 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut tinggi badan, berat badan anak anda normal.
+                    Menurut umur, rekomendasi berat badan anak anda adalah{" "}
+                    {labelRekBadanByUmur} kg.
                   </Text>
                 </View>
               </LinearGradient>
@@ -345,7 +362,8 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut tinggi badan, berat badan anak anda normal.
+                    Menurut umur, rekomendasi tinggi badan anak anda adalah{" "}
+                    {labelRekTinggiByUmur} cm.
                   </Text>
                 </View>
               </LinearGradient>
@@ -390,7 +408,8 @@ const Hasil: React.FC<IHasil> = ({ setRender }) => {
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut tinggi badan, berat badan anak anda normal.
+                    Menurut tinggi badan, rekomendasi berat badan anak anda
+                    adalah {labelRekBadanByTinggi} kg.
                   </Text>
                 </View>
               </LinearGradient>
