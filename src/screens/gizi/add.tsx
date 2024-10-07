@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import useDataStunting from "@/src/hooks/useDataStunting";
 
 interface IAdd {
   date: Date;
@@ -21,6 +22,14 @@ interface IAdd {
   setValue: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   setRender: React.Dispatch<React.SetStateAction<string>>;
+  nama: string;
+  setNama: React.Dispatch<React.SetStateAction<string>>;
+  umur: number;
+  setUmur: React.Dispatch<React.SetStateAction<number>>;
+  beratBadan: string;
+  setBeratBadan: React.Dispatch<React.SetStateAction<string>>;
+  tinggiBadan: string;
+  setTinggiBadan: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Add: React.FC<IAdd> = ({
@@ -31,7 +40,94 @@ const Add: React.FC<IAdd> = ({
   setValue,
   setDate,
   setRender,
+  nama,
+  setNama,
+  umur,
+  setUmur,
+  beratBadan,
+  setBeratBadan,
+  tinggiBadan,
+  setTinggiBadan,
 }) => {
+  const {
+    getRekBeratByTinggi,
+    getRekTinggiByUmur,
+    getRekBeratByTinggiNormal,
+    getRekBeratByUmur,
+    labelBeratByTinggi,
+    labelTinggiByUmur,
+    leblBeratByUmur,
+  } = useDataStunting();
+
+  const hitung = () => {
+    const { kondisiTinggiByUmur, rekTinggiByUmur } = getRekTinggiByUmur(
+      "laki-laki",
+      umur.toString(),
+      tinggiBadan
+    );
+
+    const { kondisiBeratByTinggi } = getRekBeratByTinggi(
+      "laki-laki",
+      tinggiBadan,
+      beratBadan
+    );
+
+    const { kondisiBeratByUmur, rekBeratByUmur } = getRekBeratByUmur(
+      "laki-laki",
+      umur.toString(),
+      beratBadan
+    );
+
+    const { rekBeratByTinggi } = getRekBeratByTinggiNormal(
+      "laki-laki",
+      umur.toString(),
+      beratBadan
+    );
+
+    const labelBeratByUmur = leblBeratByUmur.filter(
+      (dt) =>
+        dt.value.filter((val) => val == kondisiBeratByUmur.toString()).length >
+        0
+    );
+
+    const labelTinggiByUmurs = labelTinggiByUmur.filter(
+      (dt) =>
+        dt.value.filter((val) => val == kondisiTinggiByUmur.toString()).length >
+        0
+    );
+
+    const labelBeratByTinggis = labelBeratByTinggi.filter(
+      (dt) =>
+        dt.value.filter((val) => val == kondisiBeratByTinggi.toString())
+          .length > 0
+    );
+
+    console.log(
+      "1 : ",
+      kondisiBeratByUmur,
+      " - ",
+      labelBeratByUmur[0].label,
+      " - ",
+      rekBeratByUmur
+    );
+    console.log(
+      "2 : ",
+      kondisiTinggiByUmur,
+      " - ",
+      labelTinggiByUmurs[0].label,
+      " - ",
+      rekTinggiByUmur
+    );
+    console.log(
+      "3 : ",
+      kondisiBeratByTinggi,
+      " - ",
+      labelBeratByTinggis[0].label,
+      " - ",
+      rekBeratByTinggi
+    );
+  };
+
   return (
     <ScrollView
       style={{
@@ -62,6 +158,8 @@ const Add: React.FC<IAdd> = ({
             mode="outlined"
             style={{ marginBottom: 10 }}
             outlineStyle={{ borderRadius: 50 }}
+            value={nama}
+            onChangeText={(e) => setNama(e)}
           />
           <TextInput
             readOnly
@@ -105,6 +203,7 @@ const Add: React.FC<IAdd> = ({
                 onChange={(nextDate: any) => {
                   setDate(nextDate.date);
                   setShow(!show);
+                  setUmur(moment(new Date()).diff(new Date(date), "months"));
                 }}
               />
             </View>
@@ -114,7 +213,7 @@ const Add: React.FC<IAdd> = ({
             mode="outlined"
             style={{ marginBottom: 10 }}
             readOnly
-            value={moment(new Date()).diff(new Date(date), "months").toString()}
+            value={umur.toString()}
             outlineStyle={{ borderRadius: 50 }}
           />
           <TextInput
@@ -122,12 +221,18 @@ const Add: React.FC<IAdd> = ({
             mode="outlined"
             style={{ marginBottom: 10 }}
             outlineStyle={{ borderRadius: 50 }}
+            value={beratBadan}
+            onChangeText={(e) => setBeratBadan(e)}
+            keyboardType="numeric"
           />
           <TextInput
             label={"Tinggi Badan (45-110 cm)"}
             mode="outlined"
             style={{ marginBottom: 10 }}
             outlineStyle={{ borderRadius: 50 }}
+            keyboardType="numeric"
+            value={tinggiBadan}
+            onChangeText={(e) => setTinggiBadan(e)}
           />
           <View
             style={{
@@ -156,7 +261,7 @@ const Add: React.FC<IAdd> = ({
           </View>
         </View>
         <View>
-          <TouchableOpacity onPress={() => setRender("hasil")}>
+          <TouchableOpacity onPress={() => hitung()}>
             <LinearGradient
               end={[1, 0.5]}
               start={[0, 1]}

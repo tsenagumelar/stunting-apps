@@ -1,32 +1,18 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 
 interface IHasil {
   date: Date;
   show: boolean;
   value: string;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
   setRender: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Hasil: React.FC<IHasil> = ({
-  date,
-  show,
-  value,
-  setShow,
-  setValue,
-  setRender,
-}) => {
+const Hasil: React.FC<IHasil> = ({ setRender }) => {
   return (
     <View
       style={{

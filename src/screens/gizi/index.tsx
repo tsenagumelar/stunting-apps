@@ -24,6 +24,14 @@ const Gizi = () => {
       setValue={methods.setValue}
       setDate={methods.setDate}
       setRender={methods.setRender}
+      setBeratBadan={methods.setBeratBadan}
+      setTinggiBadan={methods.setTinggiBadan}
+      setNama={methods.setNama}
+      setUmur={methods.setUmur}
+      beratBadan={datas.beratBadan}
+      tinggiBadan={datas.tinggiBadan}
+      nama={datas.nama}
+      umur={datas.umur}
     />
   ) : (
     <Hasil
