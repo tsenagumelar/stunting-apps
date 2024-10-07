@@ -1,12 +1,12 @@
+import React from "react";
 import { View } from "react-native";
 
-import ModalName from "./components/modal";
-import Articles from "./components/articles";
-import MenuBox from "./components/menubox";
-import CarouselBox from "./components/carouselbox";
 import styles from "./styles";
 import useHooks from "./hooks";
-import React from "react";
+import ModalName from "./components/modal";
+import MenuBox from "./components/menubox";
+import Articles from "./components/articles";
+import CarouselBox from "./components/carouselbox";
 
 const Beranda = () => {
   const { datas, methods } = useHooks();

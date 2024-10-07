@@ -8,13 +8,14 @@ interface IHasil {
   kelamin: string;
   beratBadan: string;
   tinggiBadan: string;
-  labelBeratByUmur: string;
-  labelTinggiByUmur: string;
-  labelBeratByTinggi: string;
+  labelBeratByUmur: any;
+  labelTinggiByUmur: any;
+  labelBeratByTinggi: any;
   labelRekBadanByUmur: string;
   labelRekTinggiByUmur: string;
   labelRekBadanByTinggi: string;
   setRender: React.Dispatch<React.SetStateAction<string>>;
+  status: string;
 }
 
 const Hasil: React.FC<IHasil> = ({
@@ -30,6 +31,7 @@ const Hasil: React.FC<IHasil> = ({
   labelRekBadanByUmur,
   labelRekTinggiByUmur,
   labelRekBadanByTinggi,
+  status,
 }) => {
   return (
     <View
@@ -125,7 +127,7 @@ const Hasil: React.FC<IHasil> = ({
                   <LinearGradient
                     end={[1, 0.5]}
                     start={[0, 1]}
-                    colors={["#ffff99", "#cccc00"]}
+                    colors={[status, status]}
                     style={{
                       width: 60,
                       height: 60,
@@ -142,7 +144,7 @@ const Hasil: React.FC<IHasil> = ({
               <LinearGradient
                 end={[1, 0.5]}
                 start={[0, 1]}
-                colors={["#ffff99", "#cccc00"]}
+                colors={[labelBeratByUmur.color, labelBeratByUmur.color]}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -180,14 +182,14 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    {labelBeratByUmur}
+                    {labelBeratByUmur.label}
                   </Text>
                 </View>
               </LinearGradient>
               <LinearGradient
                 end={[1, 0.5]}
                 start={[0, 1]}
-                colors={["#ffad99", "#ff3300"]}
+                colors={[labelTinggiByUmur.color, labelTinggiByUmur.color]}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -225,14 +227,14 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    {labelTinggiByUmur}
+                    {labelTinggiByUmur.label}
                   </Text>
                 </View>
               </LinearGradient>
               <LinearGradient
                 end={[1, 0.5]}
                 start={[0, 1]}
-                colors={["#adebad", "#33cc33"]}
+                colors={[labelBeratByTinggi.color, labelBeratByTinggi.color]}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -270,7 +272,7 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    {labelBeratByTinggi}
+                    {labelBeratByTinggi.label}
                   </Text>
                 </View>
               </LinearGradient>

@@ -1,5 +1,16 @@
 import Data from "@/src/constants/labels";
 
+export interface IStunting {
+  id?: number;
+  nama: string;
+  tanggal_lahir: string;
+  jenis_kelamin: string;
+  berat: number;
+  tinggi: number;
+  status: string;
+  created_at: string;
+}
+
 const useDataStunting = () => {
   const getRekBeratByUmur = (kelamin: string, umur: string, berat: string) => {
     const BeratUmur =
@@ -21,7 +32,8 @@ const useDataStunting = () => {
                 ),
         };
       })
-      .sort((a, b) => (a.gap < b.gap ? -1 : 1));
+      .sort((a, b) => (a.gap < b.gap ? -1 : 1))
+      .filter((x) => x.key != "umur");
     const add = parseFloat(berat) >= beratByUmur[0].value ? "+" : "-";
 
     return {
@@ -54,8 +66,11 @@ const useDataStunting = () => {
                 ),
         };
       })
-      .sort((a, b) => (a.gap < b.gap ? -1 : 1));
+      .sort((a, b) => (a.gap < b.gap ? -1 : 1))
+      .filter((x) => x.key != "umur");
     const add = parseFloat(tinggi) >= tinggiByUmur[0].value ? "+" : "-";
+
+    // console.log("tinggi by umur : ", tinggiByUmur[0]);
 
     return {
       rekTinggiByUmur: ideal[0].median,
@@ -129,7 +144,8 @@ const useDataStunting = () => {
                 ),
         };
       })
-      .sort((a, b) => (a.gap < b.gap ? -1 : 1));
+      .sort((a, b) => (a.gap < b.gap ? -1 : 1))
+      .filter((x) => x.key != "panjang");
     const add = parseFloat(berat) >= beratByTinggi[0].value ? "+" : "-";
 
     return {
@@ -140,25 +156,25 @@ const useDataStunting = () => {
   const leblBeratByUmur = [
     {
       value: ["-3-"],
-      color: "red",
+      color: "#ff3300",
       label:
         "Status gizi anak buruk, perlu perbaikan gizi dengan makan sehat dan bergizi",
     },
     {
       value: ["-3+", "-2-"],
-      color: "orange",
+      color: "#ffff99",
       label:
         "Status gizi anak kurang, perlu perbaikan gizi dengan makan sehat dan bergizi",
     },
     {
       value: ["-2+", "-1-", "-1+", "median-", "median+", "+1-"],
-      color: "black",
+      color: "#33cc33",
       label:
         "Status gizi anak normal, tetap pertahankan dengan memberi makanan sehat dan bergizi",
     },
     {
       value: ["+1+", "+2-", "+2+", "+3-", "+3+"],
-      color: "orange",
+      color: "#ffff99",
       label:
         "Status gizi anak lebih, perlu perbaikan gizi dengan makanan sehat dan bergizi",
     },
@@ -167,12 +183,12 @@ const useDataStunting = () => {
   const labelTinggiByUmur = [
     {
       value: ["-3-"],
-      color: "red",
+      color: "#ff3300",
       label: "Menurut umur, tinggi badan anak dalam kategori sangat pendek",
     },
     {
       value: ["-3+", "-2-"],
-      color: "orange",
+      color: "#ffff99",
       label: "Menurut umur, tinggi badan anak dalam kategori pendek",
     },
     {
@@ -188,12 +204,12 @@ const useDataStunting = () => {
         "+2+",
         "+3-",
       ],
-      color: "black",
+      color: "#33cc33",
       label: "Tinggi badan anak sudah sesuai dengan umur",
     },
     {
       value: ["+3+"],
-      color: "orange",
+      color: "#ffff99",
       label: "Menurut umur, tinggi badan anak dalam kategori sangat tinggi",
     },
   ];
@@ -201,28 +217,28 @@ const useDataStunting = () => {
   const labelBeratByTinggi = [
     {
       value: ["-3-"],
-      color: "red",
+      color: "#ff3300",
       label:
         "Menurut tinggi badan, berat badan anak dalam kategori sangat kurus",
     },
     {
       value: ["-3+", "-2-"],
-      color: "orange",
+      color: "#ffff99",
       label: "Menurut tinggi badan, berat badan anak dalam kategori kurus",
     },
     {
       value: ["-2+", "-1-", "-1+", "median-", "median+", "+1-", "+1+", "+2-"],
-      color: "black",
+      color: "#33cc33",
       label: "Menurut tinggi badan, berat badan anak sudah sesuai",
     },
     {
       value: [, "+2+", "+3-"],
-      color: "orange",
+      color: "#ffff99",
       label: "Menurut tinggi badan, berat badan anak dalam kategori gemuk",
     },
     {
       value: ["+3+"],
-      color: "red",
+      color: "#ff3300",
       label:
         "Menurut tinggi badan, berat badan anak dalam kategori sangat gemuk",
     },

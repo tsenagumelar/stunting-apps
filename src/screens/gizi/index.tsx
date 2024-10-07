@@ -48,6 +48,7 @@ const Gizi = () => {
       umur={datas.umur}
       nama={datas.nama}
       setRender={methods.setRender}
+      status={datas.stats}
     />
   );
 };
