@@ -214,7 +214,7 @@ const useHooks = () => {
   };
 
   const showToast = () => {
-    ToastAndroid.show("NIK tidak ditemukan!", ToastAndroid.SHORT);
+    ToastAndroid.show("KIA tidak ditemukan!", ToastAndroid.SHORT);
   };
 
   const setDetail = (nik: string, id: number) => {

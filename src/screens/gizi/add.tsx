@@ -97,7 +97,7 @@ const Add: React.FC<IAdd> = ({
             }}
           >
             <TextInput
-              label={"NIK"}
+              label={"KIA"}
               mode="outlined"
               style={{ marginBottom: 10, width: "70%" }}
               outlineStyle={{ borderRadius: 50 }}
@@ -132,7 +132,7 @@ const Add: React.FC<IAdd> = ({
                     fontWeight: "bold",
                   }}
                 >
-                  CEK NIK
+                  CEK KIA
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
