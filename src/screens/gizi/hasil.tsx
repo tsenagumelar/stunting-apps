@@ -2,6 +2,7 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { kurang, normal, sangatKurang } from "@/src/constants/colors";
+import { laki, perempuan } from "@/src/hooks/useDataStunting";
 
 interface IHasil {
   nama: string;
@@ -93,7 +94,7 @@ const Hasil: React.FC<IHasil> = ({
               >
                 <Image
                   source={{
-                    uri: "https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-cute-girl-child-vector-illustration-png-image_8395700.png",
+                    uri: kelamin === "laki-laki" ? laki : perempuan,
                   }}
                   style={{
                     width: 75,
@@ -120,7 +121,8 @@ const Hasil: React.FC<IHasil> = ({
                     {nama}
                   </Text>
                   <Text>
-                    {kelamin} {`- (${umur}) bulan`}
+                    {kelamin === "laki-laki" ? "Laki-laki" : "Perempuan"}{" "}
+                    {`- (${umur}) bulan`}
                   </Text>
                   <Text>
                     {beratBadan} kg / {tinggiBadan} cm

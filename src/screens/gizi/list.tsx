@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import moment from "moment";
 import { kurang, normal, sangatKurang } from "@/src/constants/colors";
-import { IAnak, IStunting } from "@/src/hooks/useDataStunting";
+import { IAnak, IStunting, laki, perempuan } from "@/src/hooks/useDataStunting";
 
 interface IList {
   selected: number;
@@ -12,6 +12,7 @@ interface IList {
   dataGizi: IAnak[];
   setRender: React.Dispatch<React.SetStateAction<string>>;
   deleteStunting: (id: number) => void;
+  setDetail: (nik: string, id: number) => void;
 }
 
 const List: React.FC<IList> = ({
@@ -20,12 +21,8 @@ const List: React.FC<IList> = ({
   dataGizi,
   setRender,
   deleteStunting,
+  setDetail,
 }: IList) => {
-  const perempuan =
-    "https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-cute-girl-child-vector-illustration-png-image_8395700.png";
-  const laki =
-    "https://img.lovepik.com/original_origin_pic/18/08/16/1bbd68dcde8396fcf252c8dfe2e79c38.png_wh860.png";
-
   return (
     <View
       style={{
@@ -273,7 +270,11 @@ const List: React.FC<IList> = ({
                                   columnGap: 10,
                                 }}
                               >
-                                <TouchableOpacity>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    setDetail(data.nik, g.id ? g.id : 0)
+                                  }
+                                >
                                   <Icon
                                     size={22.5}
                                     source={"eye-circle"}

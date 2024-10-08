@@ -53,25 +53,25 @@ const useHooks = () => {
 
   const hitung = async () => {
     const { kondisiTinggiByUmur, rekTinggiByUmur } = getRekTinggiByUmur(
-      "laki-laki",
+      kelamin,
       umur.toString(),
       tinggiBadan
     );
 
     const { kondisiBeratByTinggi } = getRekBeratByTinggi(
-      "laki-laki",
+      kelamin,
       tinggiBadan,
       beratBadan
     );
 
     const { kondisiBeratByUmur, rekBeratByUmur } = getRekBeratByUmur(
-      "laki-laki",
+      kelamin,
       umur.toString(),
       beratBadan
     );
 
     const { rekBeratByTinggi } = getRekBeratByTinggiNormal(
-      "laki-laki",
+      kelamin,
       umur.toString(),
       beratBadan
     );
@@ -135,7 +135,7 @@ const useHooks = () => {
     setBeratBadan("");
     setTinggiBadan("");
     setUmur(0);
-    setKelamin("laki-laki");
+    setKelamin(kelamin);
     setIsNik(false);
   };
 
@@ -208,6 +208,91 @@ const useHooks = () => {
     }
   };
 
+  const setDetail = (nik: string, id: number) => {
+    const data = dataGizi.filter((item) => item.nik === nik);
+    if (data.length > 0 && data[0].stunting && data[0].stunting.length > 0) {
+      const stunting = data[0].stunting.filter((item) => item.id === id);
+      if (stunting.length > 0) {
+        const umurs = moment().diff(
+          moment(data[0].tanggal_lahir, "DD-MM-YYYY"),
+          "months"
+        );
+        const { kondisiTinggiByUmur, rekTinggiByUmur } = getRekTinggiByUmur(
+          kelamin,
+          umurs.toString(),
+          stunting[0].tinggi.toString()
+        );
+
+        const { kondisiBeratByTinggi } = getRekBeratByTinggi(
+          kelamin,
+          stunting[0].tinggi.toString(),
+          stunting[0].berat.toString()
+        );
+
+        const { kondisiBeratByUmur, rekBeratByUmur } = getRekBeratByUmur(
+          kelamin,
+          umurs.toString(),
+          stunting[0].berat.toString()
+        );
+
+        const { rekBeratByTinggi } = getRekBeratByTinggiNormal(
+          kelamin,
+          umurs.toString(),
+          stunting[0].berat.toString()
+        );
+
+        const labelBeratByUmur = leblBeratByUmur.filter(
+          (dt) =>
+            dt.value.filter((val) => val == kondisiBeratByUmur.toString())
+              .length > 0
+        );
+
+        const labelTinggiByUmurs = labelTinggiByUmur.filter(
+          (dt) =>
+            dt.value.filter((val) => val == kondisiTinggiByUmur.toString())
+              .length > 0
+        );
+
+        const labelBeratByTinggis = labelBeratByTinggi.filter(
+          (dt) =>
+            dt.value.filter((val) => val == kondisiBeratByTinggi.toString())
+              .length > 0
+        );
+
+        setNama(data[0].nama);
+        setKelamin(data[0].jenis_kelamin);
+        setDate(moment(data[0].tanggal_lahir, "DD-MM-YYYY").toDate());
+        setUmur(
+          moment().diff(moment(data[0].tanggal_lahir, "DD-MM-YYYY"), "months")
+        );
+        setBeratBadan(stunting[0].berat.toString());
+        setTinggiBadan(stunting[0].tinggi.toString());
+        setNik(data[0].nik);
+
+        setLabelBeratByUmur(labelBeratByUmur[0]);
+        setLabelTinggiByUmur(labelTinggiByUmurs[0]);
+        setLabelBeratByTinggi(labelBeratByTinggis[0]);
+        setLabelRekBadanByUmur(rekBeratByUmur.toString());
+        setLabelRekTinggiByUmur(rekTinggiByUmur.toString());
+        setLabelRekBadanByTinggi(rekBeratByTinggi.toString());
+
+        const stat =
+          labelBeratByTinggis[0].color === "#ff3300" ||
+          labelTinggiByUmurs[0].color === "#ff3300" ||
+          labelBeratByTinggis[0].color === "#ff3300"
+            ? "Sangat Kurang"
+            : labelBeratByTinggis[0].color === "#ffff99" ||
+              labelTinggiByUmurs[0].color === "#ffff99" ||
+              labelBeratByTinggis[0].color === "#ffff99" //#33cc33
+            ? "Kurang"
+            : "Normal";
+        setStats(stat);
+
+        setRender("view");
+      }
+    }
+  };
+
   return {
     datas: {
       render,
@@ -253,6 +338,7 @@ const useHooks = () => {
       setIsNik,
       checkIsNik,
       deleteStunting,
+      setDetail,
     },
   };
 };

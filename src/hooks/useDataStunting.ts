@@ -19,6 +19,11 @@ export interface IStunting {
   created_at: string;
 }
 
+export const perempuan =
+  "https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-cute-girl-child-vector-illustration-png-image_8395700.png";
+export const laki =
+  "https://img.lovepik.com/original_origin_pic/18/08/16/1bbd68dcde8396fcf252c8dfe2e79c38.png_wh860.png";
+
 const useDataStunting = () => {
   const getRekBeratByUmur = (kelamin: string, umur: string, berat: string) => {
     const BeratUmur =

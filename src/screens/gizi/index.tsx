@@ -15,6 +15,7 @@ const Gizi = () => {
       selected={datas.selected}
       setRender={methods.setRender}
       deleteStunting={methods.deleteStunting}
+      setDetail={methods.setDetail}
     />
   ) : datas.render === "tambah" ? (
     <Add
