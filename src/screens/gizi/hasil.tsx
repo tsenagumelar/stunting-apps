@@ -323,7 +323,7 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut umur, rekomendasi berat badan anak anda adalah{" "}
+                    Berat badan anak ideal menurut umur adalah{" "}
                     {labelRekBadanByUmur} kg.
                   </Text>
                 </View>
@@ -369,7 +369,7 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut umur, rekomendasi tinggi badan anak anda adalah{" "}
+                    Tinggi badan anak ideal menurut umur adalah{" "}
                     {labelRekTinggiByUmur} cm.
                   </Text>
                 </View>
@@ -415,8 +415,8 @@ const Hasil: React.FC<IHasil> = ({
                       marginHorizontal: 10,
                     }}
                   >
-                    Menurut tinggi badan, rekomendasi berat badan anak anda
-                    adalah {labelRekBadanByTinggi} kg.
+                    Berat badan anak ideal menurut tinggi badan adalah{" "}
+                    {labelRekBadanByTinggi} kg.
                   </Text>
                 </View>
               </LinearGradient>

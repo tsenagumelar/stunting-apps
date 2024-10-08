@@ -12,6 +12,7 @@ import {
 import { useSQLiteContext } from "expo-sqlite";
 import moment from "moment";
 import styles from "../beranda/styles";
+import { ToastAndroid } from "react-native";
 
 const useHooks = () => {
   const db = useSQLiteContext();
@@ -164,23 +165,26 @@ const useHooks = () => {
   const getDataAnak = async () => {
     const data = (await getAllDataAnak(db)) as IAnak[];
     if (data.length > 0) {
-      const datas = data.map((item) => {
+      const datas: IAnak[] = [];
+      data.map(async (item, index) => {
         let news = {
           ...item,
         };
-        getAllDataStunting(db, item.nik).then((data) => {
-          let stun = data as IStunting[];
-          news.stunting = stun.sort((a, b) => {
-            return (
-              new Date(b.created_at).getTime() -
-              new Date(a.created_at).getTime()
-            );
-          });
+        const stunting = (await getAllDataStunting(
+          db,
+          item.nik
+        )) as IStunting[];
+        news.stunting = stunting.sort((a, b) => {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
         });
+        datas.push(news);
+        if (index === data.length - 1) {
+          setDataGizi(datas);
+        }
         return news;
       });
-      setDataGizi(datas);
-      console.log(datas);
     }
   };
 
@@ -197,6 +201,7 @@ const useHooks = () => {
     const data = (await getDataAnakByNik(db, nik)) as IAnak[];
     if (data.length === 0) {
       clearState(false);
+      showToast();
     } else {
       setIsNik(true);
       setNama(data[0].nama);
@@ -206,6 +211,10 @@ const useHooks = () => {
         moment().diff(moment(data[0].tanggal_lahir, "DD-MM-YYYY"), "months")
       );
     }
+  };
+
+  const showToast = () => {
+    ToastAndroid.show("NIK tidak ditemukan!", ToastAndroid.SHORT);
   };
 
   const setDetail = (nik: string, id: number) => {
@@ -339,6 +348,7 @@ const useHooks = () => {
       checkIsNik,
       deleteStunting,
       setDetail,
+      clearState,
     },
   };
 };

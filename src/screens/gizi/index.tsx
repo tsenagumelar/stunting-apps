@@ -39,6 +39,7 @@ const Gizi = () => {
       setNik={methods.setNik}
       checkNik={methods.checkIsNik}
       isNik={datas.isNik}
+      clear={methods.clearState}
     />
   ) : (
     <Hasil

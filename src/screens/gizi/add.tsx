@@ -10,7 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface IAdd {
   date: Date;
@@ -33,6 +33,7 @@ interface IAdd {
   hitung: () => void;
   isNik: boolean;
   checkNik: () => void;
+  clear: (isNik: boolean) => void;
 }
 
 const Add: React.FC<IAdd> = ({
@@ -56,7 +57,12 @@ const Add: React.FC<IAdd> = ({
   setNik,
   isNik,
   checkNik,
+  clear,
 }) => {
+  useEffect(() => {
+    clear(true);
+  }, []);
+
   return (
     <ScrollView
       style={{
@@ -186,7 +192,9 @@ const Add: React.FC<IAdd> = ({
                 onChange={(nextDate: any) => {
                   setDate(nextDate.date);
                   setShow(!show);
-                  setUmur(moment(new Date()).diff(new Date(date), "months"));
+                  setUmur(
+                    moment(new Date()).diff(new Date(nextDate.date), "months")
+                  );
                 }}
               />
             </View>
