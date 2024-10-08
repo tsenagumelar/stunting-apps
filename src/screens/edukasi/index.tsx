@@ -1,6 +1,15 @@
+import { Asset } from "expo-asset";
+import { WebView } from "react-native-webview";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
-import { Dimensions, Image, ScrollView, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import Poster from "@/src/assets/document";
 
@@ -10,21 +19,20 @@ const Edukasi = () => {
       id: 1,
       title: "Booklet Stunting",
       image: "bookletImage",
+      pdf: "bookletPdf",
     },
     {
       id: 2,
       title: "Buku Saku Stunting Desa",
       image: "bukuSaku",
+      pdf: "bukuSakuPdf",
     },
   ];
 
-  return (
-    <View
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-    >
+  const [selected, setSelected] = React.useState(0);
+
+  const renderData = () => {
+    return (
       <ScrollView>
         <View
           style={{
@@ -44,7 +52,8 @@ const Edukasi = () => {
             }}
           >
             {data.map((item, index) => (
-              <View
+              <TouchableOpacity
+                onPress={() => setSelected(item.id)}
                 key={index}
                 style={{
                   width: Dimensions.get("screen").width * 0.29,
@@ -91,11 +100,72 @@ const Edukasi = () => {
                     {item.title}
                   </Text>
                 </LinearGradient>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
       </ScrollView>
+    );
+  };
+
+  const renderDetail = () => {
+    const item = data.filter((item) => item.id === selected)[0];
+    const source = Asset.fromModule(
+      Poster[item.pdf as keyof typeof Poster]
+    ).uri;
+    return (
+      <View
+        style={{
+          display: "flex",
+        }}
+      >
+        <WebView
+          source={{ uri: source }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          on
+        />
+        <TouchableOpacity onPress={() => setSelected(0)}>
+          <LinearGradient
+            end={[1, 0.5]}
+            start={[0, 1]}
+            colors={["#21D4FD", "#55ACEE"]}
+            style={{
+              width: "90%",
+              height: 40,
+              marginTop: 20,
+              display: "flex",
+              borderRadius: 50,
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: "red",
+              justifyContent: "center",
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 14,
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              Kembali
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  return (
+    <View
+      style={{
+        height: "100%",
+        width: "100%",
+      }}
+    >
+      {selected === 0 ? renderData() : renderDetail()}
     </View>
   );
 };

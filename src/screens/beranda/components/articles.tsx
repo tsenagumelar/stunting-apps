@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import Colors from "@/src/constants/colors";
 
@@ -7,9 +7,11 @@ import useHooks from "../hooks";
 import React from "react";
 
 import Poster from "@/src/assets/document";
+import { useNavigation } from "expo-router";
 
 const Articles = () => {
   const { datas } = useHooks();
+  const navigation = useNavigation();
   return (
     <View style={styles.articlesBox}>
       <Text
@@ -78,17 +80,21 @@ const Articles = () => {
                 >
                   {item.description}
                 </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    fontStyle: "italic",
-                    color: Colors.light.tint,
-                    textDecorationLine: "underline",
-                  }}
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("edukasi" as never)}
                 >
-                  Lihat Detail
-                </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      fontStyle: "italic",
+                      color: Colors.light.tint,
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    Lihat Detail
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
           ))}

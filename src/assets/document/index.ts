@@ -13,4 +13,7 @@ export default {
   menu2_1223: require("./menu-2_12-23.jpeg"),
   menu1_2459: require("./menu-1_24-59.jpeg"),
   mencegahStunting: require("./cara-mencegah-stunting.mp4"),
+  comingSoon: require("./coming-soon.png"),
+  rs: require("./rs.png"),
+  profile: require("./profile.jpg"),
 };
