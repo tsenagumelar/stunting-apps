@@ -24,7 +24,6 @@ const UserProfile = () => {
       >
         <Image source={Poster["profile"]} style={styles.profileImage} />
         <Text style={styles.userName}>Reni Eka Lestari, S.ST., Bd., M.M</Text>
-        <Text style={styles.userJob}>Midwife</Text>
       </LinearGradient>
 
       <View style={styles.cardContainer}>
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     color: "#fff",
-    marginTop: 10,
+    marginTop: 20,
   },
   userJob: {
     fontSize: 16,
