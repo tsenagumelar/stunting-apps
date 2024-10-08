@@ -2,12 +2,16 @@ import React from "react";
 import { Icon } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import moment from "moment";
+import { kurang, normal, sangatKurang } from "@/src/constants/colors";
+import { IAnak, IStunting } from "@/src/hooks/useDataStunting";
 
 interface IList {
   selected: number;
   setSelected: React.Dispatch<React.SetStateAction<number>>;
-  dataGizi: any;
+  dataGizi: IAnak[];
   setRender: React.Dispatch<React.SetStateAction<string>>;
+  deleteStunting: (id: number) => void;
 }
 
 const List: React.FC<IList> = ({
@@ -15,15 +19,12 @@ const List: React.FC<IList> = ({
   setSelected,
   dataGizi,
   setRender,
+  deleteStunting,
 }: IList) => {
   const perempuan =
     "https://png.pngtree.com/png-clipart/20220726/original/pngtree-cartoon-cute-girl-child-vector-illustration-png-image_8395700.png";
   const laki =
     "https://img.lovepik.com/original_origin_pic/18/08/16/1bbd68dcde8396fcf252c8dfe2e79c38.png_wh860.png";
-
-  const normal = ["#adebad", "#33cc33"];
-  const kurang = ["#ffff99", "#cccc00"];
-  const sangatKurang = ["#ffad99", "#ff3300"];
 
   return (
     <View
@@ -106,176 +107,199 @@ const List: React.FC<IList> = ({
             rowGap: 10,
           }}
         >
-          {dataGizi.map((data: any, index: number) => (
-            <View
-              key={index}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+          {dataGizi.length > 0 &&
+            dataGizi.map((data: IAnak, index: number) => (
               <View
+                key={index}
                 style={{
-                  padding: 10,
-                  height: 100,
-                  width: "100%",
                   display: "flex",
-                  borderRadius: 50,
-                  flexDirection: "row",
+                  flexDirection: "column",
+                  justifyContent: "center",
                   alignItems: "center",
-                  backgroundColor: "white",
-                  borderWidth: 0.35,
-                  borderColor: "gray",
-                  shadowColor: "#000",
-                  shadowOffset: {
-                    width: 0,
-                    height: 1,
-                  },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 1.41,
-                  elevation: 5,
                 }}
               >
-                <Image
-                  source={{
-                    uri: data.jenisKelamin === "Laki-laki" ? laki : perempuan,
-                  }}
-                  style={{
-                    width: 75,
-                    height: 75,
-                    borderRadius: 50,
-                    marginRight: 20,
-                  }}
-                />
                 <View
                   style={{
-                    height: "100%",
+                    padding: 10,
+                    height: 100,
+                    width: "100%",
                     display: "flex",
-                    flexDirection: "column",
-                    rowGap: 5,
-                    width: "52.5%",
+                    borderRadius: 50,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    backgroundColor: "white",
+                    borderWidth: 0.35,
+                    borderColor: "gray",
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 1,
+                    },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 1.41,
+                    elevation: 5,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 18,
+                  <Image
+                    source={{
+                      uri:
+                        data.jenis_kelamin === "laki-laki" ? laki : perempuan,
                     }}
-                  >
-                    {data.nama}
-                  </Text>
-                  <Text>
-                    {data.jenisKelamin} {`- (${10 + index}) bulan`}
-                  </Text>
-                  <Text>
-                    {data.gizi[data.gizi.length - 1].beratBadan} kg /{" "}
-                    {data.gizi[data.gizi.length - 1].tinggiBadan} cm
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  onPress={() => {
-                    selected === index ? setSelected(-1) : setSelected(index);
-                  }}
-                >
-                  <LinearGradient
-                    end={[1, 0.5]}
-                    start={[0, 1]}
-                    colors={
-                      data.status === "Normal"
-                        ? normal
-                        : data.status === "Kurang"
-                        ? kurang
-                        : sangatKurang
-                    }
                     style={{
-                      width: 60,
-                      height: 60,
-                      display: "flex",
+                      width: 75,
+                      height: 75,
                       borderRadius: 50,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      backgroundColor: "red",
-                      justifyContent: "center",
+                      marginRight: 20,
                     }}
                   />
-                </TouchableOpacity>
-              </View>
-              {index === selected && (
-                <View
-                  style={{
-                    padding: 15,
-                    width: "100%",
-                    marginTop: -50,
-                    paddingTop: 70,
-                    zIndex: -1,
-                    display: "flex",
-                    borderWidth: 0.45,
-                    borderColor: "gray",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <View>
+                  <View
+                    style={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      rowGap: 5,
+                      width: "52.5%",
+                    }}
+                  >
                     <Text
                       style={{
-                        fontSize: 16,
-                        marginBottom: 20,
                         fontWeight: "bold",
+                        fontSize: 16,
                       }}
                     >
-                      Detail Pemeriksaan
+                      {`${data.nama} - (${data.nik})`}
                     </Text>
-                    <View
+                    <Text>
+                      {data.jenis_kelamin === "laki-laki"
+                        ? "Laki - Laki"
+                        : "Perempuan"}{" "}
+                      {`- (${moment().diff(
+                        moment(data.tanggal_lahir, "DD-MM-YYYY"),
+                        "months"
+                      )}) bulan`}
+                    </Text>
+                    <Text>
+                      {data.stunting && data.stunting.length > 0
+                        ? `${data.stunting[0].berat} kg / ${data.stunting[0].tinggi} cm`
+                        : `-`}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => {
+                      selected === index ? setSelected(-1) : setSelected(index);
+                    }}
+                  >
+                    <LinearGradient
+                      end={[1, 0.5]}
+                      start={[0, 1]}
+                      colors={
+                        data.stunting && data.stunting.length > 0
+                          ? data.stunting[0].status === "Normal"
+                            ? normal
+                            : data.stunting[0].status === "Kurang"
+                            ? kurang
+                            : sangatKurang
+                          : normal
+                      }
                       style={{
-                        rowGap: 10,
+                        width: 60,
+                        height: 60,
                         display: "flex",
-                        flexDirection: "column",
+                        borderRadius: 50,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        backgroundColor: "red",
+                        justifyContent: "center",
                       }}
-                    >
-                      {data.gizi.map((g: any, i: number) => (
-                        <View
-                          key={i}
-                          style={{
-                            display: "flex",
-                            paddingBottom: 10,
-                            flexDirection: "row",
-                            borderBottomWidth: 0.35,
-                            borderBottomColor: "gray",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text>{g.tanggalPeriksa}</Text>
-                          <Text>
-                            {g.beratBadan} kg / {g.tinggiBadan} cm
-                          </Text>
-                          <View
-                            style={{
-                              width: 75,
-                              display: "flex",
-                              flexDirection: "row",
-                              columnGap: 10,
-                            }}
-                          >
-                            <Icon
-                              size={22.5}
-                              source={"eye-circle"}
-                              color="#3399ff"
-                            />
-                            <Icon
-                              size={22.5}
-                              color="#ff704d"
-                              source={"trash-can"}
-                            />
-                          </View>
-                        </View>
-                      ))}
+                    />
+                  </TouchableOpacity>
+                </View>
+                {index === selected && (
+                  <View
+                    style={{
+                      padding: 15,
+                      width: "100%",
+                      marginTop: -50,
+                      paddingTop: 70,
+                      zIndex: -1,
+                      display: "flex",
+                      borderWidth: 0.45,
+                      borderColor: "gray",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          marginBottom: 20,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Detail Pemeriksaan
+                      </Text>
+                      <View
+                        style={{
+                          rowGap: 10,
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        {data.stunting &&
+                          data.stunting.length > 0 &&
+                          data.stunting.map((g: IStunting, i: number) => (
+                            <View
+                              key={i}
+                              style={{
+                                display: "flex",
+                                paddingBottom: 10,
+                                flexDirection: "row",
+                                borderBottomWidth: 0.35,
+                                borderBottomColor: "gray",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Text>
+                                {moment(g.created_at).format("DD-MM-YYYY")}
+                              </Text>
+                              <Text>
+                                {g.berat} kg / {g.tinggi} cm
+                              </Text>
+                              <View
+                                style={{
+                                  width: 75,
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  columnGap: 10,
+                                }}
+                              >
+                                <TouchableOpacity>
+                                  <Icon
+                                    size={22.5}
+                                    source={"eye-circle"}
+                                    color="#3399ff"
+                                  />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    deleteStunting(g.id ? g.id : 0)
+                                  }
+                                >
+                                  <Icon
+                                    size={22.5}
+                                    color="#ff704d"
+                                    source={"trash-can"}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                          ))}
+                      </View>
                     </View>
                   </View>
-                </View>
-              )}
-            </View>
-          ))}
+                )}
+              </View>
+            ))}
         </View>
       </ScrollView>
     </View>

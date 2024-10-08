@@ -22,4 +22,8 @@ const Colors = {
   },
 };
 
+export const normal = ["#adebad", "#33cc33"];
+export const kurang = ["#ffff99", "#cccc00"];
+export const sangatKurang = ["#ffad99", "#ff3300"];
+
 export default Colors;

@@ -29,7 +29,7 @@ export default function RootLayout() {
   }
 
   return (
-    <SQLiteProvider databaseName="stunting.db">
+    <SQLiteProvider databaseName="stunting_data.db">
       <ThemeProvider value={DefaultTheme}>
         <PaperProvider>
           <Stack

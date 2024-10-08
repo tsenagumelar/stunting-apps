@@ -1,10 +1,18 @@
 import Data from "@/src/constants/labels";
 
-export interface IStunting {
+export interface IAnak {
   id?: number;
+  nik: string;
   nama: string;
   tanggal_lahir: string;
   jenis_kelamin: string;
+  created_at: string;
+  stunting?: IStunting[];
+}
+
+export interface IStunting {
+  id?: number;
+  nik: string;
   berat: number;
   tinggi: number;
   status: string;

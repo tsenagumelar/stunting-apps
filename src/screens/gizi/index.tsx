@@ -14,6 +14,7 @@ const Gizi = () => {
       setSelected={methods.setSelected}
       selected={datas.selected}
       setRender={methods.setRender}
+      deleteStunting={methods.deleteStunting}
     />
   ) : datas.render === "tambah" ? (
     <Add
@@ -33,6 +34,10 @@ const Gizi = () => {
       nama={datas.nama}
       umur={datas.umur}
       hitung={methods.hitung}
+      nik={datas.nik}
+      setNik={methods.setNik}
+      checkNik={methods.checkIsNik}
+      isNik={datas.isNik}
     />
   ) : (
     <Hasil

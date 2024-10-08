@@ -1,6 +1,7 @@
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
+import { kurang, normal, sangatKurang } from "@/src/constants/colors";
 
 interface IHasil {
   nama: string;
@@ -33,6 +34,8 @@ const Hasil: React.FC<IHasil> = ({
   labelRekBadanByTinggi,
   status,
 }) => {
+  const colorStat =
+    status === "Normal" ? normal : status === "Kurang" ? kurang : sangatKurang;
   return (
     <View
       style={{
@@ -127,7 +130,7 @@ const Hasil: React.FC<IHasil> = ({
                   <LinearGradient
                     end={[1, 0.5]}
                     start={[0, 1]}
-                    colors={[status, status]}
+                    colors={colorStat}
                     style={{
                       width: 60,
                       height: 60,

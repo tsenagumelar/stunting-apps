@@ -20,6 +20,8 @@ interface IAdd {
   setKelamin: React.Dispatch<React.SetStateAction<string>>;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
   setRender: React.Dispatch<React.SetStateAction<string>>;
+  nik: string;
+  setNik: React.Dispatch<React.SetStateAction<string>>;
   nama: string;
   setNama: React.Dispatch<React.SetStateAction<string>>;
   umur: number;
@@ -29,6 +31,8 @@ interface IAdd {
   tinggiBadan: string;
   setTinggiBadan: React.Dispatch<React.SetStateAction<string>>;
   hitung: () => void;
+  isNik: boolean;
+  checkNik: () => void;
 }
 
 const Add: React.FC<IAdd> = ({
@@ -48,6 +52,10 @@ const Add: React.FC<IAdd> = ({
   tinggiBadan,
   setTinggiBadan,
   hitung,
+  nik,
+  setNik,
+  isNik,
+  checkNik,
 }) => {
   return (
     <ScrollView
@@ -74,6 +82,55 @@ const Add: React.FC<IAdd> = ({
           >
             Tambah Data
           </Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <TextInput
+              label={"NIK"}
+              mode="outlined"
+              style={{ marginBottom: 10, width: "70%" }}
+              outlineStyle={{ borderRadius: 50 }}
+              value={nik}
+              onChangeText={(e) => setNik(e)}
+            />
+            <TouchableOpacity
+              style={{
+                width: "25%",
+                height: 40,
+                display: "flex",
+                borderRadius: 50,
+              }}
+              onPress={() => checkNik()}
+            >
+              <LinearGradient
+                end={[1, 0.5]}
+                start={[0, 1]}
+                colors={["#21D4FD", "#55ACEE"]}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  borderRadius: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
+                  CEK NIK
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
           <TextInput
             label={"Nama"}
             mode="outlined"
@@ -81,17 +138,22 @@ const Add: React.FC<IAdd> = ({
             outlineStyle={{ borderRadius: 50 }}
             value={nama}
             onChangeText={(e) => setNama(e)}
+            disabled={isNik}
           />
           <TextInput
-            readOnly
             value={moment(new Date(date)).format("DD-MM-YYYY")}
             mode="outlined"
             label={"Tanggal Lahir"}
             style={{ marginBottom: 10 }}
             right={
-              <TextInput.Icon icon="calendar" onPress={() => setShow(!show)} />
+              <TextInput.Icon
+                icon="calendar"
+                onPress={() => setShow(!show)}
+                disabled={isNik}
+              />
             }
             outlineStyle={{ borderRadius: 50 }}
+            disabled={isNik}
           />
           <Modal
             animationType="slide"
@@ -133,7 +195,7 @@ const Add: React.FC<IAdd> = ({
             label={"Umur (0-60 bulan)"}
             mode="outlined"
             style={{ marginBottom: 10 }}
-            readOnly
+            disabled
             value={umur.toString()}
             outlineStyle={{ borderRadius: 50 }}
           />
@@ -168,6 +230,7 @@ const Add: React.FC<IAdd> = ({
                 value="laki-laki"
                 status={kelamin === "laki-laki" ? "checked" : "unchecked"}
                 onPress={() => setKelamin("laki-laki")}
+                disabled={isNik}
               />
               <Text>Laki-laki</Text>
             </View>
@@ -176,6 +239,7 @@ const Add: React.FC<IAdd> = ({
                 value="perempuan"
                 status={kelamin === "perempuan" ? "checked" : "unchecked"}
                 onPress={() => setKelamin("perempuan")}
+                disabled={isNik}
               />
               <Text>Perempuan</Text>
             </View>
