@@ -95,7 +95,7 @@ export default function TabLayout() {
                     borderColor: Colors.light.tint,
                   }}
                   source={{
-                    uri: "https://cdn-icons-png.flaticon.com/512/201/201634.png",
+                    uri: "https://cdn-icons-png.flaticon.com/512/3774/3774299.png",
                   }}
                 />
               </View>
@@ -105,9 +105,7 @@ export default function TabLayout() {
                   width: "auto",
                 }}
               >
-                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                  Halo Reni
-                </Text>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>Halo,</Text>
                 <Text style={{ fontStyle: "italic", fontSize: 12 }}>
                   Bagaimana kabarmu hari ini?
                 </Text>

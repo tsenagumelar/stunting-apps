@@ -1,0 +1,16 @@
+export default {
+  poster1: require("./poster-1.png"),
+  poster2: require("./poster-2.webp"),
+  poster3: require("./poster-3.jpg"),
+  poster4: require("./poster-4.jpg"),
+  bookletImage: require("./booklet-stunting.png"),
+  bukuSaku: require("./buku-saku-stunting-desa.png"),
+  bookletPdf: require("./booklet-stunting.pdf"),
+  bukuSakuPdf: require("./buku-saku-stunting-desa.pdf"),
+  jadwalEdukasi: require("./jadwal-edukasi.jpeg"),
+  menu1_611: require("./menu-1_6-11.jpeg"),
+  menu1_1223: require("./menu-1_12-23.jpeg"),
+  menu2_1223: require("./menu-2_12-23.jpeg"),
+  menu1_2459: require("./menu-1_24-59.jpeg"),
+  mencegahStunting: require("./cara-mencegah-stunting.mp4"),
+};

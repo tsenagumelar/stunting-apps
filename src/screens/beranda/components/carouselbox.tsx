@@ -5,6 +5,8 @@ import { useRef } from "react";
 import useHooks from "../hooks";
 import React from "react";
 
+import Poster from "@/src/assets/document";
+
 const CarouselBox = () => {
   const { datas } = useHooks();
   const ref = useRef<ICarouselInstance>(null);
@@ -42,9 +44,7 @@ const CarouselBox = () => {
                 borderWidth: 0.25,
                 resizeMode: "stretch",
               }}
-              source={{
-                uri: item.image,
-              }}
+              source={Poster[item.image as keyof typeof Poster]}
             />
           </View>
         )}

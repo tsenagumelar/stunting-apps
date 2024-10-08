@@ -2,103 +2,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { Dimensions, Image, ScrollView, Text, View } from "react-native";
 
+import Poster from "@/src/assets/document";
+
 const Edukasi = () => {
   const data = [
     {
       id: 1,
-      title: "Nutrisi 1 Bulan",
-      image:
-        "https://jpg-indonesia.net/wp-content/uploads/2020/03/banner-indoHCF.jpeg",
+      title: "Booklet Stunting",
+      image: "bookletImage",
     },
     {
       id: 2,
-      title: "Gizi 1 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLLM90wKWW5eFB2P8ihg5WEfIyKQH8Ui4gKQ&s",
-    },
-    {
-      id: 3,
-      title: "Makanan Sehat 1 Bulan",
-      image:
-        "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/infomase/2024/02/IMG_20240221_164110.jpg",
-    },
-    {
-      id: 4,
-      title: "Makanan Bergizi 1 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1fdYuJHqVUXA0HSvxPMOZxHSZz462px0ypQ&s",
-    },
-    {
-      id: 5,
-      title: "Nutrisi 2 Bulan",
-      image:
-        "https://jpg-indonesia.net/wp-content/uploads/2020/03/banner-indoHCF.jpeg",
-    },
-    {
-      id: 6,
-      title: "Gizi 2 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLLM90wKWW5eFB2P8ihg5WEfIyKQH8Ui4gKQ&s",
-    },
-    {
-      id: 7,
-      title: "Makanan Sehat 2 Bulan",
-      image:
-        "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/infomase/2024/02/IMG_20240221_164110.jpg",
-    },
-    {
-      id: 8,
-      title: "Makanan Bergizi 2 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1fdYuJHqVUXA0HSvxPMOZxHSZz462px0ypQ&s",
-    },
-    {
-      id: 1,
-      title: "Nutrisi 3 Bulan",
-      image:
-        "https://jpg-indonesia.net/wp-content/uploads/2020/03/banner-indoHCF.jpeg",
-    },
-    {
-      id: 2,
-      title: "Gizi 3 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLLM90wKWW5eFB2P8ihg5WEfIyKQH8Ui4gKQ&s",
-    },
-    {
-      id: 3,
-      title: "Makanan Sehat 3 Bulan",
-      image:
-        "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/infomase/2024/02/IMG_20240221_164110.jpg",
-    },
-    {
-      id: 4,
-      title: "Makanan Bergizi 3 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1fdYuJHqVUXA0HSvxPMOZxHSZz462px0ypQ&s",
-    },
-    {
-      id: 5,
-      title: "Nutrisi 4 Bulan",
-      image:
-        "https://jpg-indonesia.net/wp-content/uploads/2020/03/banner-indoHCF.jpeg",
-    },
-    {
-      id: 6,
-      title: "Gizi 4 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLLM90wKWW5eFB2P8ihg5WEfIyKQH8Ui4gKQ&s",
-    },
-    {
-      id: 7,
-      title: "Makanan Sehat 4 Bulan",
-      image:
-        "https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/infomase/2024/02/IMG_20240221_164110.jpg",
-    },
-    {
-      id: 8,
-      title: "Makanan Bergizi 4 Bulan",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1fdYuJHqVUXA0HSvxPMOZxHSZz462px0ypQ&s",
+      title: "Buku Saku Stunting Desa",
+      image: "bukuSaku",
     },
   ];
 
@@ -124,7 +40,7 @@ const Edukasi = () => {
               width: "100%",
               flexWrap: "wrap",
               flexDirection: "row",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
           >
             {data.map((item, index) => (
@@ -148,9 +64,7 @@ const Edukasi = () => {
                     height: Dimensions.get("screen").width * 0.4,
                     resizeMode: "cover",
                   }}
-                  source={{
-                    uri: item.image,
-                  }}
+                  source={Poster[item.image as keyof typeof Poster]}
                 />
                 <LinearGradient
                   end={[1, 0.5]}

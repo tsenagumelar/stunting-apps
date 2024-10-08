@@ -6,6 +6,8 @@ import styles from "../styles";
 import useHooks from "../hooks";
 import React from "react";
 
+import Poster from "@/src/assets/document";
+
 const Articles = () => {
   const { datas } = useHooks();
   return (
@@ -32,7 +34,7 @@ const Articles = () => {
             justifyContent: "space-between",
           }}
         >
-          {datas.carouselDummy.map((item, index) => (
+          {datas.articleData.map((item, index) => (
             <View
               key={index}
               style={{
@@ -51,7 +53,7 @@ const Articles = () => {
               }}
             >
               <Image
-                source={{ uri: item.image }}
+                source={Poster[item.image as keyof typeof Poster]}
                 style={{
                   width: "100%",
                   height: "55%",
