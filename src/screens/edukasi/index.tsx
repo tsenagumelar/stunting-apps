@@ -1,4 +1,3 @@
-import { Asset } from "expo-asset";
 import { WebView } from "react-native-webview";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
@@ -19,13 +18,13 @@ const Edukasi = () => {
       id: 1,
       title: "Booklet Stunting",
       image: "bookletImage",
-      pdf: "bookletPdf",
+      pdf: "https://drive.google.com/file/d/1RWoR37VJ5DIpfG9dsTuxNPAelY39YsrK/view?usp=sharing",
     },
     {
       id: 2,
       title: "Buku Saku Stunting Desa",
       image: "bukuSaku",
-      pdf: "bukuSakuPdf",
+      pdf: "https://drive.google.com/file/d/1A8kRY6kTRdodDDP688nHI_4oo8gJno0k/view?usp=sharing",
     },
   ];
 
@@ -110,21 +109,27 @@ const Edukasi = () => {
 
   const renderDetail = () => {
     const item = data.filter((item) => item.id === selected)[0];
-    const source = Asset.fromModule(
-      Poster[item.pdf as keyof typeof Poster]
-    ).uri;
+
     return (
-      <View
-        style={{
-          display: "flex",
-        }}
-      >
-        <WebView
-          source={{ uri: source }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          on
-        />
+      <>
+        <View
+          style={{
+            height: Dimensions.get("screen").height * 0.75,
+            width: Dimensions.get("screen").width * 0.95,
+          }}
+        >
+          <WebView
+            source={{
+              uri: item.pdf,
+            }}
+            javaScriptEnabled={true}
+            domStorageEnabled={true}
+            style={{
+              height: "80%",
+              width: "100%",
+            }}
+          />
+        </View>
         <TouchableOpacity onPress={() => setSelected(0)}>
           <LinearGradient
             end={[1, 0.5]}
@@ -154,7 +159,7 @@ const Edukasi = () => {
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-      </View>
+      </>
     );
   };
 
